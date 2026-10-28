@@ -1,0 +1,12 @@
+
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.ipynb_checkpoints/
+
+chest_xray/
+dataset/
+datasets/
+data/
