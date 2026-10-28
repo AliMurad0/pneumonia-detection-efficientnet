@@ -1,102 +1,176 @@
-🫁 Pneumonia Detection from Chest X-Rays
+ <div align="center">
 
-Deep-learning system that classifies chest X-ray images as NORMAL or PNEUMONIA using transfer learning on ImageNet-pretrained CNNs, with two ready-to-run interfaces:
+# 🩺 Pneumonia Detection Using Deep Learning
 
-Streamlit app (app.py): lightweight web app with the trained MobileNetV2 model (pneumonia_model.h5) included.
-Clinical-style dashboard (dashboard/): Gradio dashboard for EfficientNet models with CLAHE contrast enhancement, a tuned decision threshold, confidence levels, session statistics and a prediction log.
+### 🫁 AI-powered Chest X-Ray Classification
 
-⚠️ Disclaimer: This is a research/educational project and not a medical device. Predictions must not be used for diagnosis.
+An educational deep-learning project exploring pneumonia classification from chest X-ray images using a trained CNN model and a Python-based application.
 
-Streamlit app
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow"/>
+  <img src="https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white" alt="Keras"/>
+  <img src="https://img.shields.io/badge/Deep_Learning-CNN-blueviolet?style=for-the-badge" alt="Deep Learning"/>
+</p>
 
-✨ Features
-Binary classification of chest X-rays: Normal vs Pneumonia
-Transfer learning (MobileNetV2 / EfficientNet backbones)
-CLAHE (Contrast Limited Adaptive Histogram Equalization) preprocessing to enhance lung detail
-Tuned decision threshold instead of a fixed 0.5 cut-off
-Confidence levels: high, moderate, or low (review recommended)
-Session statistics and prediction log in the dashboard
-Optional test-time augmentation (TTA) passes
-evaluate.py to reproduce test-set metrics, a confusion matrix and an ROC curve
-🧠 Pipeline
-yes
-no
-Chest X-ray image
-Resize224 / 300 px
-CLAHE contrastenhancement(EfficientNet dashboard)
-Pretrained CNN backboneMobileNetV2 / EfficientNet
-Global average pooling+ sigmoid output
-Probability = threshold?
-PNEUMONIA
-NORMAL
-Component	MobileNetV2 app (app.py)	EfficientNet dashboard (dashboard/)
-Input size	224 × 224 RGB	300 × 300 (B3) / 380 × 380 (B4), auto-detected
-Preprocessing	Rescale to [0, 1]	CLAHE + EfficientNet preprocess_input
-Output	Sigmoid probability	Sigmoid probability
-Decision threshold	0.50	0.8714 (tuned on validation set)
-UI	Streamlit	Gradio
-📊 Results
+<p>
+  <a href="https://github.com/AliMurad0/pneumonia-detection-efficientnet">📂 View Repository</a>
+</p>
 
-Evaluated on the held-out test set with evaluate.py.
+</div>
 
-Metric	Value
-Accuracy	—
-Precision	—
-Recall (Sensitivity)	—
-Specificity	—
-F1-score	—
-ROC-AUC	—
-<p align="center"> <img src="images/confusion_matrix.png" width="45%" alt="Confusion matrix"/> &nbsp; <img src="images/roc_curve.png" width="45%" alt="ROC curve"/> </p>
-🖥️ Dashboard
+---
 
-Gradio dashboard
+## 📌 Table of Contents
 
-📁 Project Structure
+- [🌟 Overview](#-overview)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Installation](#️-installation)
+- [🚀 Usage](#-usage)
+- [🧠 Model and Methodology](#-model-and-methodology)
+- [📊 Evaluation](#-evaluation)
+- [🔮 Future Improvements](#-future-improvements)
+- [⚠️ Disclaimer](#️-disclaimer)
+
+## 🌟 Overview
+
+Pneumonia Detection is a computer vision project that explores the use of deep learning to classify chest X-ray images.
+
+The project includes a trained model file, Python application code, and supporting utilities for loading the model and generating predictions.
+
+The goal is to demonstrate practical skills in deep learning, image classification, model integration, and AI application development.
+
+## ✨ Features
+
+- 🩻 Chest X-ray image classification
+- 🧠 Integration with a trained deep-learning model
+- 🐍 Python-based application
+- ⚙️ Model-loading and configuration utilities
+- 📊 Potential for model evaluation and visualization
+
+*Features should reflect the capabilities implemented and tested in the current version.*
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| 🐍 Python | Application development |
+| 🧠 TensorFlow / Keras | Deep-learning model integration |
+| 🖼️ CNN | Image classification |
+| 📦 NumPy | Numerical processing |
+| 🌐 Streamlit / Flask | Application interface, depending on the selected entry point |
+
+## 📁 Project Structure
+
+```text
 pneumonia-detection-efficientnet/
-├── app.py                 # Streamlit app (MobileNetV2)
-├── pneumonia_model.h5     # Trained MobileNetV2 model
-├── evaluate.py            # Test-set metrics + figures
-├── requirements.txt
-├── images/                # README screenshots and result figures
-└── dashboard/             # Gradio dashboard (EfficientNet)
-    ├── app.py
-    ├── model_loader.py
-    ├── config.py          # model path, threshold, port, TTA
-    ├── requirements.txt
-    ├── setup.bat / setup.sh / run.bat
-    └── models/            # put your .keras / .h5 model here
-🚀 Getting Started
-1. Clone
-bash
+│
+├── pneumonia_dashboard/
+│   ├── models/
+│   ├── app.py
+│   ├── config.py
+│   ├── model_loader.py
+│   ├── requirements.txt
+│   └── README.md
+│
+├── assets/
+│   └── application.png
+│
+├── app.py
+├── pneumonia_model.h5
+├── .gitignore
+└── README.md
+```
+
+*The structure above is illustrative. Update it to match the files actually committed to the repository.*
+
+## ⚙️ Installation
+
+### 1️⃣ Clone the repository
+
+```bash
 git clone https://github.com/AliMurad0/pneumonia-detection-efficientnet.git
 cd pneumonia-detection-efficientnet
-2. Run the Streamlit app
-bash
-pip install -r requirements.txt
-streamlit run app.py
+```
 
-Upload a chest X-ray (.jpg / .png) to get a prediction with a confidence score.
+### 2️⃣ Create a virtual environment
 
-3. Run the EfficientNet dashboard
-bash
-cd dashboard
-# Windows: setup.bat then run.bat
-# Mac/Linux:
-chmod +x setup.sh && ./setup.sh
-source .venv/bin/activate
+```bash
+python -m venv venv
+```
+
+Activate it on Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 3️⃣ Install dependencies
+
+```bash
+pip install -r pneumonia_dashboard/requirements.txt
+```
+
+Ensure you use the requirements file for the application you intend to run.
+
+## 🚀 Usage
+
+The repository includes Python application files and model-loading utilities.
+
+To launch the application, check the relevant entry point and its instructions. If the root `app.py` is the correct entry point, run:
+
+```bash
 python app.py
+```
 
-Place your trained EfficientNet model (.keras or .h5) in dashboard/models/. The dashboard opens at http://127.0.0.1:7860. Settings such as the threshold, image size, port and TTA passes are in dashboard/config.py.
+If the dashboard uses Streamlit or Flask, follow the appropriate launch command documented in its own README.
 
-4. Reproduce the results
+## 🧠 Model and Methodology
 
-Download the Chest X-Ray Images (Pneumonia) dataset, then:
+The application integrates a trained model stored as `pneumonia_model.h5`.
 
-bash
-python evaluate.py --model pneumonia_model.h5 --test-dir chest_xray/test
+Document the following details from your actual training code:
 
-This writes images/confusion_matrix.png, images/roc_curve.png and images/metrics.json, and prints a metrics table for this README.
+- 🗂️ Dataset source and class distribution
+- 🧹 Image preprocessing and resizing
+- 🧠 CNN architecture and model configuration
+- 🏋️ Training parameters and augmentation
+- 🔬 Testing methodology and evaluation metrics
 
-🛠️ Tech Stack
+These details should be verified against the model and training records before being reported.
 
-Python · TensorFlow / Keras · MobileNetV2 · EfficientNet · OpenCV / Albumentations (CLAHE) · scikit-learn · Streamlit · Gradio
+## 📊 Evaluation
+
+A reliable evaluation should use a separate test set and include:
+
+- Accuracy
+- Precision
+- Recall (sensitivity)
+- F1-score
+- Confusion matrix
+
+**Evaluation results and visualizations will be added once they have been generated and verified.** No unverified performance figures are reported here.
+
+## 🔮 Future Improvements
+
+- 📈 Add training and validation curves
+- 🧮 Generate a confusion matrix and classification report
+- 🔍 Explore Grad-CAM visualizations for model interpretability
+- 🧪 Add reproducible testing and evaluation scripts
+- 🖥️ Improve the prediction interface and documentation
+
+## ⚠️ Disclaimer
+
+This project is intended for educational and research purposes only. It is not a clinically validated diagnostic system and must not be used to make medical decisions. Medical professionals should interpret chest X-rays and determine diagnoses.
+
+---
+
+<div align="center">
+
+### 💙 Built as an AI and Deep Learning Project
+
+[⬆️ Back to Top](#-pneumonia-detection-using-deep-learning)
+
+</div>
